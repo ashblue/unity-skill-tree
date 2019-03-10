@@ -3,7 +3,8 @@
 namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
     public class NodeSkill : INode {
         public List<INode> Children { get; } = new List<INode>();
-        public bool IsPurchased { get; private set; }
+        public bool IsPurchased { get; set; }
+        public string Id { get; set; }
 
         public void AddChild (INode node) {
             Children.Add(node);

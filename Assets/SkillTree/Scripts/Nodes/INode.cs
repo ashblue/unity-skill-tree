@@ -6,5 +6,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         bool IsPurchased { get; }
         string Id { get; set; }
         void AddChild (INode node);
+        void Purchase ();
+        void Refund ();
     }
 }

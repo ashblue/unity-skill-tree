@@ -9,5 +9,13 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public void AddChild (INode node) {
             Children.Add(node);
         }
+
+        public void Purchase () {
+            throw new System.NotImplementedException();
+        }
+
+        public void Refund () {
+            throw new System.NotImplementedException();
+        }
     }
 }

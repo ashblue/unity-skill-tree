@@ -2,11 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using CleverCrow.DungeonsAndHumans.SkillTrees.Nodes;
 using CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes;
+using UnityEngine.Events;
 
 namespace CleverCrow.DungeonsAndHumans.SkillTrees {
     public class SkillTreeInstance {
         public NodeRoot Root { get; private set; }
         private List<INode> _skills;
+        
+        public UnityEvent OnPurchase { get; } = new UnityEvent();
 
         public void Setup (ISkillTreeData data) {
             Root = new NodeRoot();
@@ -29,6 +32,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
                 
                 _skills.Add(node);
                 pointer.AddChild(node);
+                node.OnPurchase.AddListener(OnPurchase.Invoke);
                 RecursiveAdd(node, data.Children);
                 
                 if (data.IsPurchased) {

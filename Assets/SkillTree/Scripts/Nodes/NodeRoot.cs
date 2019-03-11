@@ -17,6 +17,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public UnityEvent OnParentPurchase { get; } = null;
         public UnityEvent OnRefund { get; } = null;
         public UnityEvent<bool> OnParentRefund { get; } = null;
+        public UnityEvent OnDisable { get; } = null;
 
         public void ParentRefund () {
             throw new System.NotImplementedException();
@@ -38,6 +39,12 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
 
         public void ParentPurchased() {
             throw new System.NotImplementedException();
+        }
+
+        public void Disable () {
+            foreach (var child in Children) {
+                child.Disable();
+            }
         }
     }
 }

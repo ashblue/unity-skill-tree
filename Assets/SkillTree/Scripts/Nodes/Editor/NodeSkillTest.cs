@@ -153,5 +153,33 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes.Editors {
                 _node.ParentRefund();
             }
         }
+
+        public class DisableMethod : NodeSkillTest {
+            [Test]
+            public void It_should_set_IsEnabled_to_true_if_IsPurchase_is_true () {
+                _node.ParentPurchased();
+                _node.Purchase();
+                
+                Assert.IsTrue(_node.IsEnabled);
+            }
+            
+            [Test]
+            public void It_should_set_IsEnabled_to_false_if_IsPurchase_is_false () {
+                _node.ParentPurchased();
+                _node.Disable();
+                
+                Assert.IsFalse(_node.IsEnabled);
+            }
+            
+            [Test]
+            public void It_should_call_children_with_Disable () {
+                var child = Substitute.For<INode>();
+                
+                _node.AddChild(child);
+                _node.Disable();
+                
+                child.Received(1).Disable();
+            }
+        }
     }
 }

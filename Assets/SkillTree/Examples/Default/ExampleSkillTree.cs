@@ -27,6 +27,8 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
         private void Purchase () {
             skillPoints -= 1;
             printer.SetPoints(skillPoints);
+
+            if (skillPoints <= 0) _skillTree.Root.Disable();
         }
 
         private void Refund () {

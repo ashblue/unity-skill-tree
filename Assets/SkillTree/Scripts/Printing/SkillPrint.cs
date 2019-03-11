@@ -40,6 +40,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             child.OnParentPurchase.AddListener(RefreshState);
             child.OnRefund.AddListener(RefreshState);
             child.OnParentRefund.AddListener(RefreshState);
+            child.OnDisable.AddListener(RefreshState);
         }
 
         private void RefreshState () {
@@ -84,6 +85,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             _node?.OnParentPurchase.RemoveListener(RefreshState);
             _node?.OnRefund.RemoveListener(RefreshState);
             _node?.OnParentRefund.RemoveListener(RefreshState);
+            _node?.OnDisable.RemoveListener(RefreshState);
         }
     }
 }

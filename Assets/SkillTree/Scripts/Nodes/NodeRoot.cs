@@ -1,16 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
     public class NodeRoot : INode {
         public List<INode> Children { get; } = new List<INode>();
         public bool IsPurchased => true;
-        public string Id { get; set; }
-        public string DisplayName { get; set; }
-        public Sprite Graphic { get; set; }
-        public string Description { get; set; }
+        public string Id { get; } = null;
+        public string DisplayName { get; } = null;
+        public Sprite Graphic { get; } = null;
+        public string Description { get; } = null;
 
         public bool IsEnabled => true;
+        
+        public UnityEvent OnPurchase { get; } = null;
+        public UnityEvent OnParentPurchase { get; } = null;
 
         public void AddChild (INode node) {
             Children.Add(node);

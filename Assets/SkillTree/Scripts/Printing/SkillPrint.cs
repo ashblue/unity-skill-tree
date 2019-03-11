@@ -5,6 +5,7 @@ using UnityEngine.UI;
 namespace CleverCrow.DungeonsAndHumans.SkillTrees {
     public class SkillPrint : MonoBehaviour {
         private Color _normalColor;
+        private INode _node;
         
         public Text title;
         public Image graphic;
@@ -21,9 +22,11 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
         }
 
         public void Setup (INode child, INode parent) {
+            _node = child;
+            
             title.text = child.DisplayName;
             graphic.sprite = child.Graphic;
-            purchaseGraphic.gameObject.SetActive(child.IsPurchased);
+            RefreshPurchaseState();
             
             connectorLeft.gameObject.SetActive(!(parent is NodeRoot));
             connectorRight.gameObject.SetActive(child.Children.Count > 0);
@@ -32,7 +35,18 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
                 AdjustAlignment(child, parent);
             }
 
-            if (child.IsEnabled) {
+            RefreshEnableState();
+
+            child.OnPurchase.AddListener(RefreshPurchaseState);
+            child.OnParentPurchase.AddListener(RefreshEnableState);
+        }
+
+        private void RefreshPurchaseState () {
+            purchaseGraphic.gameObject.SetActive(_node.IsPurchased);
+        }
+
+        private void RefreshEnableState() {
+            if (_node.IsEnabled) {
                 ButtonEnable();
             } else {
                 ButtonDisable();
@@ -59,6 +73,11 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             colors.normalColor = _normalColor;
 
             button.colors = colors;
+        }
+
+        private void OnDestroy() {
+            _node?.OnPurchase.RemoveListener(RefreshPurchaseState);
+            _node?.OnParentPurchase.RemoveListener(RefreshEnableState);
         }
     }
 }

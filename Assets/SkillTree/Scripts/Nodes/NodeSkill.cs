@@ -15,7 +15,9 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public UnityEvent OnPurchase { get; } = new UnityEvent();
         public UnityEvent OnParentPurchase { get; } = new UnityEvent();
         public UnityEvent OnRefund { get; } = new UnityEvent();
-        public UnityEvent OnParentRefund { get; } = new UnityEvent();
+        public UnityEvent<bool> OnParentRefund { get; } = new UnityEventBool();
+        
+        private class UnityEventBool : UnityEvent<bool> {}
 
         public void AddChild (INode node) {
             Children.Add(node);
@@ -47,6 +49,8 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         }
         
         public void ParentRefund () {
+            var oldPurchase = IsPurchased;
+            
             IsEnabled = false;
             IsPurchased = false;
             
@@ -54,7 +58,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
                 child.ParentRefund();
             }
             
-            OnParentRefund.Invoke();
+            OnParentRefund.Invoke(oldPurchase);
         }
     }
 }

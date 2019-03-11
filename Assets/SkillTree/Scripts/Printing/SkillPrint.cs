@@ -52,6 +52,11 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             }
         }
 
+        // Appease the parent refund hook
+        private void RefreshState (bool state) {
+            RefreshState();
+        }
+
         private void AdjustAlignment (INode child, INode parent) {
             if (parent.Children[0] == child) {
                 alignment.childAlignment = TextAnchor.UpperLeft;

@@ -138,11 +138,19 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes.Editors {
             [Test]
             public void It_should_trigger_OnParentRefund () {
                 var result = false;
-                _node.OnParentRefund.AddListener(() => result = true);
+                _node.OnParentRefund.AddListener((isPurchased) => result = true);
                 
                 _node.ParentRefund();
                 
                 Assert.IsTrue(result);
+            }
+
+            [Test]
+            public void It_should_return_the_previous_IsPurchased_value () {
+                _node.OnParentRefund.AddListener((isPurchased) => Assert.IsTrue(isPurchased));
+                
+                _node.Purchase();
+                _node.ParentRefund();
             }
         }
     }

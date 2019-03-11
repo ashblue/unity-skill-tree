@@ -13,6 +13,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
             _skillTree = new SkillTreeInstance();
             _skillTree.Setup(graph);
             _skillTree.OnPurchase.AddListener(Purchase);
+            _skillTree.OnRefund.AddListener(Refund);
 
             printer.Build(_skillTree);
             printer.SetPoints(skillPoints);
@@ -20,10 +21,16 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
 
         private void OnDestroy () {
             _skillTree.OnPurchase.RemoveListener(Purchase);
+            _skillTree.OnRefund.RemoveListener(Refund);
         }
 
         private void Purchase () {
             skillPoints -= 1;
+            printer.SetPoints(skillPoints);
+        }
+
+        private void Refund () {
+            skillPoints += 1;
             printer.SetPoints(skillPoints);
         }
     }

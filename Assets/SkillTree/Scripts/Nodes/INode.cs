@@ -16,11 +16,11 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         void Purchase ();
         void Refund ();
         void ParentPurchased();
-        
+        void ParentRefund ();
+
         UnityEvent OnPurchase { get; }
         UnityEvent OnParentPurchase { get; }
         UnityEvent OnRefund { get; }
-        UnityEvent OnParentRefund { get; }
-        void ParentRefund ();
+        UnityEvent<bool> OnParentRefund { get; }
     }
 }

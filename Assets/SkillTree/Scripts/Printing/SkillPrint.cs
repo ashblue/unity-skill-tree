@@ -26,7 +26,6 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             
             title.text = child.DisplayName;
             graphic.sprite = child.Graphic;
-            RefreshPurchaseState();
             
             connectorLeft.gameObject.SetActive(!(parent is NodeRoot));
             connectorRight.gameObject.SetActive(child.Children.Count > 0);
@@ -35,17 +34,17 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
                 AdjustAlignment(child, parent);
             }
 
-            RefreshEnableState();
+            RefreshState();
 
-            child.OnPurchase.AddListener(RefreshPurchaseState);
-            child.OnParentPurchase.AddListener(RefreshEnableState);
+            child.OnPurchase.AddListener(RefreshState);
+            child.OnParentPurchase.AddListener(RefreshState);
+            child.OnRefund.AddListener(RefreshState);
+            child.OnParentRefund.AddListener(RefreshState);
         }
 
-        private void RefreshPurchaseState () {
+        private void RefreshState () {
             purchaseGraphic.gameObject.SetActive(_node.IsPurchased);
-        }
-
-        private void RefreshEnableState() {
+            
             if (_node.IsEnabled) {
                 ButtonEnable();
             } else {
@@ -76,8 +75,10 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
         }
 
         private void OnDestroy() {
-            _node?.OnPurchase.RemoveListener(RefreshPurchaseState);
-            _node?.OnParentPurchase.RemoveListener(RefreshEnableState);
+            _node?.OnPurchase.RemoveListener(RefreshState);
+            _node?.OnParentPurchase.RemoveListener(RefreshState);
+            _node?.OnRefund.RemoveListener(RefreshState);
+            _node?.OnParentRefund.RemoveListener(RefreshState);
         }
     }
 }

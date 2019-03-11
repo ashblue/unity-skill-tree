@@ -15,6 +15,12 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         
         public UnityEvent OnPurchase { get; } = null;
         public UnityEvent OnParentPurchase { get; } = null;
+        public UnityEvent OnRefund { get; } = null;
+        public UnityEvent OnParentRefund { get; } = null;
+
+        public void ParentRefund () {
+            throw new System.NotImplementedException();
+        }
 
         public void AddChild (INode node) {
             Children.Add(node);

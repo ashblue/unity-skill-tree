@@ -9,6 +9,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         string Id { get; set; }
         string DisplayName { get; set; }
         Sprite Graphic { get; set; }
+        string Description { get; set; }
         void AddChild (INode node);
         void Purchase ();
         void Refund ();

@@ -8,6 +8,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public string Id { get; set; }
         public string DisplayName { get; set; }
         public Sprite Graphic { get; set; }
+        public string Description { get; set; }
 
         public bool IsEnabled => true;
 

@@ -24,6 +24,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
                     Id = data.Id,
                     DisplayName = data.DisplayName,
                     Graphic = data.Graphic,
+                    Description = data.Description,
                 };
                 
                 _skills.Add(node);

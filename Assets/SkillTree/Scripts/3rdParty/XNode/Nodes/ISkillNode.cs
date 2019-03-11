@@ -10,5 +10,6 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
         bool IsPurchased { get; }
         
         List<ISkillNode> Children { get; }
+        string Description { get; }
     }
 }

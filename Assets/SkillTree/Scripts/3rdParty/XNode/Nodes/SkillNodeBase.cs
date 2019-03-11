@@ -19,10 +19,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
         public virtual Sprite Graphic => null;
         public virtual bool IsPurchased => false;
         public virtual string DisplayName => null;
-
-        protected override void Init () {
-            GenerateId();
-        }
+        public virtual string Description => null;
         
         public List<ISkillNode> Children {
             get {
@@ -34,6 +31,11 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
     
                 return list;
             }
+        }
+
+        
+        protected override void Init () {
+            GenerateId();
         }
 
         private void GenerateId () {

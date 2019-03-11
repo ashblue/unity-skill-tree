@@ -7,10 +7,16 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
         public Connection enter;
         
         [SerializeField] private string _displayName = "Untitled";
+        
+        [TextArea]
+        [SerializeField] 
+        private string _description = "Please provide a description";
+        
         [SerializeField] private Sprite _graphic;
         [SerializeField] private bool _purchased;
         
         public override string DisplayName => _displayName;
+        public override string Description => _description;
         public override Sprite Graphic => _graphic;
         public override bool IsPurchased => _purchased;
     }

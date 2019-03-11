@@ -34,6 +34,8 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
         private void Refund () {
             skillPoints += 1;
             printer.SetPoints(skillPoints);
+            
+            _skillTree.Root.Enable(true);
         }
     }
 }

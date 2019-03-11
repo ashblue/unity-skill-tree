@@ -12,7 +12,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public string Description { get; } = null;
 
         public bool IsEnabled => true;
-        
+
         public UnityEvent OnPurchase { get; } = null;
         public UnityEvent OnParentPurchase { get; } = null;
         public UnityEvent OnRefund { get; } = null;
@@ -44,6 +44,12 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public void Disable () {
             foreach (var child in Children) {
                 child.Disable();
+            }
+        }
+
+        public void Enable (bool parentIsPurchased) {
+            foreach (var child in Children) {
+                child.Enable(true);
             }
         }
     }

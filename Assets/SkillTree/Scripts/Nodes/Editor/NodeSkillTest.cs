@@ -35,6 +35,16 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes.Editors {
                 
                 Assert.IsTrue(_node.IsPurchased);
             }
+
+            [Test]
+            public void It_should_call_ParentPurchased_on_children () {
+                var child = Substitute.For<INode>();
+
+                _node.AddChild(child);
+                _node.Purchase();
+
+                child.Received(1).ParentPurchased();
+            }
         }
 
         public class RefundMethod : NodeSkillTest {
@@ -45,6 +55,15 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes.Editors {
                 
                 Assert.IsFalse(_node.IsPurchased);
             }
-        }        
+        }
+
+        public class ParentPurchasedMethod : NodeSkillTest {
+            [Test]
+            public void It_should_mark_the_node_as_IsEnabled () {
+                _node.ParentPurchased();
+                
+                Assert.IsTrue(_node.IsEnabled);
+            }
+        }
     }
 }

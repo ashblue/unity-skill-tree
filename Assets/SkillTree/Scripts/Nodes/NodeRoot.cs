@@ -9,15 +9,23 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public string DisplayName { get; set; }
         public Sprite Graphic { get; set; }
 
+        public bool IsEnabled => true;
+
         public void AddChild (INode node) {
             Children.Add(node);
         }
 
         public void Purchase () {
-            throw new System.NotImplementedException();
+            foreach (var child in Children) {
+                child.ParentPurchased();
+            }
         }
 
         public void Refund () {
+            throw new System.NotImplementedException();
+        }
+
+        public void ParentPurchased() {
             throw new System.NotImplementedException();
         }
     }

@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 namespace CleverCrow.DungeonsAndHumans.SkillTrees {
     public class SkillPrint : MonoBehaviour {
+        private Color _normalColor;
+        
         public Text title;
         public Image graphic;
         public Image purchaseGraphic;
@@ -13,6 +15,10 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
         public RectTransform childOutput;
         public RectTransform connectorLeft;
         public RectTransform connectorRight;
+
+        private void Awake() {
+            _normalColor = button.colors.normalColor;
+        }
 
         public void Setup (INode child, INode parent) {
             title.text = child.DisplayName;
@@ -25,6 +31,12 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             if (!(parent is NodeRoot) && parent.Children.Count > 0) {
                 AdjustAlignment(child, parent);
             }
+
+            if (child.IsEnabled) {
+                ButtonEnable();
+            } else {
+                ButtonDisable();
+            }
         }
 
         private void AdjustAlignment (INode child, INode parent) {
@@ -33,6 +45,20 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             } else if (parent.Children[parent.Children.Count - 1] == child) {
                 alignment.childAlignment = TextAnchor.LowerLeft;
             }
+        }
+
+        private void ButtonDisable () {
+            var colors = button.colors;
+            colors.normalColor = colors.disabledColor;
+
+            button.colors = colors;
+        }
+
+        private void ButtonEnable () {
+            var colors = button.colors;
+            colors.normalColor = _normalColor;
+
+            button.colors = colors;
         }
     }
 }

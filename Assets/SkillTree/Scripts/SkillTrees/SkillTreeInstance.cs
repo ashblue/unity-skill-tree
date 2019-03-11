@@ -13,6 +13,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             _skills = new List<INode>();
             
             RecursiveAdd(Root, data.Root.Children);
+            Root.Purchase();
         }
 
         private void RecursiveAdd (INode pointer, IEnumerable<ISkillNode> children) {

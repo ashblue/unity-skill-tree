@@ -574,7 +574,7 @@ MonoBehaviour:
   _id: bfeb88ed-9b91-49a4-b1d8-edbea3f584f6
   _displayName: Untitled
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
-  _purchased: 0
+  _purchased: 1
 --- !u!114 &114931308291968718
 MonoBehaviour:
   m_ObjectHideFlags: 0

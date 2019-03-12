@@ -17,6 +17,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
         public string Id => _id;
 
         public virtual Sprite Graphic => null;
+        public virtual bool Hide => false;
         public virtual bool IsPurchased => false;
         public virtual string DisplayName => null;
         public virtual string Description => null;
@@ -32,7 +33,6 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
                 return list;
             }
         }
-
         
         protected override void Init () {
             GenerateId();

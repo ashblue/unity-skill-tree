@@ -75,6 +75,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0
 --- !u!114 &114126875075206742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +121,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0
 --- !u!114 &114143909228068330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +167,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0
 --- !u!114 &114155050739608996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +213,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0
 --- !u!114 &114257060839982278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +259,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0
 --- !u!114 &114276634776313208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +305,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0
 --- !u!114 &114397532487582238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +360,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 1
+  _hide: 0
 --- !u!114 &114528253410716620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,6 +406,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0
 --- !u!114 &114591512134947082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,6 +461,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0
 --- !u!114 &114609886614735832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,6 +544,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0
 --- !u!114 &114723902773113630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,6 +593,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0
 --- !u!114 &114791669647502448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,6 +645,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0
 --- !u!114 &114799745603145494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +691,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0
 --- !u!114 &114900590939109306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,6 +746,7 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 1
+  _hide: 0
 --- !u!114 &114931308291968718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,3 +792,4 @@ MonoBehaviour:
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
+  _hide: 0

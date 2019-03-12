@@ -24,6 +24,8 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             if (children == null) return;
             
             foreach (var data in children) {
+                if (data.Hide) continue;
+                
                 var node = new NodeSkill {
                     Id = data.Id,
                     DisplayName = data.DisplayName,

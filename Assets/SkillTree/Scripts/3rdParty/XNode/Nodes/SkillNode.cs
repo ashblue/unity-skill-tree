@@ -12,12 +12,20 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
         [SerializeField] 
         private string _description = "Please provide a description";
         
-        [SerializeField] private Sprite _graphic;
-        [SerializeField] private bool _purchased;
+        [SerializeField] 
+        private Sprite _graphic;
+        
+        [SerializeField] 
+        private bool _purchased;
+
+        [Tooltip("Hidden nodes will be excluded at runtime from the skill tree")]
+        [SerializeField]
+        private bool _hide;
         
         public override string DisplayName => _displayName;
         public override string Description => _description;
         public override Sprite Graphic => _graphic;
         public override bool IsPurchased => _purchased;
+        public override bool Hide => _hide;
     }
 }

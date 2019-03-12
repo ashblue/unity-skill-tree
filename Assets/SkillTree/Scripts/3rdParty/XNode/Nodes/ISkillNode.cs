@@ -6,6 +6,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
         string Id { get; }
         string DisplayName { get; }
         Sprite Graphic { get; }
+        bool Hide { get; }
         
         bool IsPurchased { get; }
         

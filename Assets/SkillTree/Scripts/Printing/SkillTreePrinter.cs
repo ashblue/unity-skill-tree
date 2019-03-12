@@ -41,8 +41,8 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             }
         }
 
-        public void SetPoints (int points) {
-            _pointOutput.text = $"Skill Points: {points}";
+        public void SetPoints (int abilityPoints, int skillPoints) {
+            _pointOutput.text = $"Ability Points: {abilityPoints}; Skill Points: {skillPoints}";
         }
     }
 }

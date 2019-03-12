@@ -10,8 +10,11 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
         public NodeRoot Root { get; private set; }
         private List<INode> _skills;
         
-        public UnityEvent OnPurchase { get; } = new UnityEvent();
-        public UnityEvent OnRefund { get; } = new UnityEvent();
+        public UnityEvent<INode> OnPurchase { get; } = new UnityEventNode();
+        public UnityEvent<INode> OnRefund { get; } = new UnityEventNode();
+        
+        private class UnityEventNode : UnityEvent<INode> {
+        }
 
         public void Setup (ISkillTreeData data) {
             Root = new NodeRoot();
@@ -37,10 +40,10 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
                     SkillType = child is AbilityNode ? SkillType.Ability : SkillType.Skill,
                 };
                 
-                node.OnPurchase.AddListener(OnPurchase.Invoke);
-                node.OnRefund.AddListener(OnRefund.Invoke);
+                node.OnPurchase.AddListener(() => OnPurchase.Invoke(node));
+                node.OnRefund.AddListener(() => OnRefund.Invoke(node));
                 node.OnParentRefund.AddListener(isPurchased => {
-                    if (isPurchased) OnRefund.Invoke();
+                    if (isPurchased) OnRefund.Invoke(node);
                 });
                 
                 _skills.Add(node);

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using CleverCrow.DungeonsAndHumans.SkillTrees.Nodes;
 using CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
         public SkillTreeInstance skillTree;
         
         public int skillPoints = 5;
+        public int abilityPoints = 5;
         public SkillTreeGraph graph;
         public SkillTreePrinter printer;
 
@@ -31,7 +34,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
             skillTree.OnRefund.AddListener(Refund);
 
             printer.Build(skillTree);
-            printer.SetPoints(skillPoints);
+            printer.SetPoints(abilityPoints, skillPoints);
         }
 
         private void OnDestroy () {
@@ -39,17 +42,40 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
             skillTree.OnRefund.RemoveListener(Refund);
         }
 
-        private void Purchase () {
-            skillPoints -= 1;
-            printer.SetPoints(skillPoints);
-
-            if (skillPoints <= 0) skillTree.Root.Disable();
+        private void Purchase (INode node) {
+            switch (node.SkillType) {
+                case SkillType.Skill: {
+                    skillPoints -= 1;
+                    if (skillPoints <= 0) skillTree.Root.Disable();
+                    break;
+                }
+                case SkillType.Ability: {
+                    abilityPoints -= 1;
+                    if (abilityPoints <= 0) skillTree.Root.Disable();
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            printer.SetPoints(abilityPoints, skillPoints);
         }
 
-        private void Refund () {
-            skillPoints += 1;
-            printer.SetPoints(skillPoints);
+        private void Refund (INode node) {
+            switch (node.SkillType) {
+                case SkillType.Skill: {
+                    skillPoints += 1;
+                    break;
+                }
+                case SkillType.Ability: {
+                    abilityPoints += 1;
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             
+            printer.SetPoints(abilityPoints, skillPoints);
             skillTree.Root.Enable(true);
         }
 

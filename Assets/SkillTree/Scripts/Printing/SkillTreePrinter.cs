@@ -19,6 +19,10 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
         private Text _pointOutput;
 
         public void Build (SkillTreeInstance tree) {
+            foreach (Transform child in _nodeOutput) {
+                Destroy(child.gameObject);
+            }
+
             RecursivePrint(tree.Root, _nodeOutput);
         }
 

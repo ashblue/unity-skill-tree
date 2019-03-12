@@ -12,6 +12,9 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
         [SerializeField]
         private SkillPrint _skillPrefab;
 
+        [SerializeField]
+        private SkillPrint _abilityPrefab;
+        
         [SerializeField] 
         private ContextPrint _context;
 
@@ -28,7 +31,10 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
 
         private void RecursivePrint (INode node, RectTransform parent) {
             foreach (var child in node.Children) {
-                var skill = Instantiate(_skillPrefab, parent);
+                var nodePrefab = _skillPrefab;
+                if (child.SkillType == SkillType.Ability) nodePrefab = _abilityPrefab;
+                
+                var skill = Instantiate(nodePrefab, parent);
                 skill.Setup(child, node);
                 skill.button.onClick.AddListener(() => _context.Open(child));
                 RecursivePrint(child, skill.childOutput);

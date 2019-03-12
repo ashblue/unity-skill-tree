@@ -29,7 +29,59 @@ MonoBehaviour:
   - {fileID: 114791669647502448}
   - {fileID: 114257060839982278}
   - {fileID: 114143909228068330}
+  - {fileID: 114136554005563858}
+  - {fileID: 114958237259914062}
+  - {fileID: 114648303813759082}
+  - {fileID: 114004161911076206}
+  - {fileID: 114674815165933746}
+  - {fileID: 114282262480335352}
   _root: {fileID: 114609886614735832}
+--- !u!114 &114004161911076206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38da9a5643cd4694917ecc9b24515a0c, type: 3}
+  m_Name: Skill Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -72, y: -184}
+  ports:
+    keys:
+    - enter
+    - children
+    values:
+    - _fieldName: enter
+      _node: {fileID: 114004161911076206}
+      _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: children
+        node: {fileID: 114136554005563858}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: children
+      _node: {fileID: 114004161911076206}
+      _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _id: 9b067ac3-3898-46cb-944b-45e046b16b54
+  _displayName: Untitled
+  _description: Please provide a description
+  _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
+  _purchased: 0
+  _hide: 0
 --- !u!114 &114099637393542578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +169,58 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   _id: 91cae424-e283-4bcc-b8bc-97d83371f991
+  _displayName: Untitled
+  _description: Please provide a description
+  _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
+  _purchased: 0
+  _hide: 0
+--- !u!114 &114136554005563858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df147baacf3d834aabddf23b21e5611, type: 3}
+  m_Name: Ability Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -328, y: -280}
+  ports:
+    keys:
+    - enter
+    - children
+    values:
+    - _fieldName: enter
+      _node: {fileID: 114136554005563858}
+      _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: children
+        node: {fileID: 114609886614735832}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: children
+      _node: {fileID: 114136554005563858}
+      _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: enter
+        node: {fileID: 114723902773113630}
+        reroutePoints: []
+      - fieldName: enter
+        node: {fileID: 114004161911076206}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _id: 66d4501b-20bf-4c39-b758-b99bd625499a
   _displayName: Untitled
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
@@ -306,6 +410,52 @@ MonoBehaviour:
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
   _purchased: 0
   _hide: 0
+--- !u!114 &114282262480335352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38da9a5643cd4694917ecc9b24515a0c, type: 3}
+  m_Name: Skill Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 456, y: -312}
+  ports:
+    keys:
+    - enter
+    - children
+    values:
+    - _fieldName: enter
+      _node: {fileID: 114282262480335352}
+      _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: children
+        node: {fileID: 114712779466234388}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: children
+      _node: {fileID: 114282262480335352}
+      _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _id: f8ec4166-81e6-409a-b09f-124359b244d0
+  _displayName: Untitled
+  _description: Please provide a description
+  _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
+  _purchased: 0
+  _hide: 0
 --- !u!114 &114397532487582238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +481,7 @@ MonoBehaviour:
         Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: children
-        node: {fileID: 114609886614735832}
+        node: {fileID: 114958237259914062}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -475,7 +625,7 @@ MonoBehaviour:
   m_Name: Skill Node Root
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -408, y: -104}
+  position: {x: -648, y: -104}
   ports:
     keys:
     - children
@@ -486,11 +636,55 @@ MonoBehaviour:
         Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: enter
-        node: {fileID: 114723902773113630}
+        node: {fileID: 114136554005563858}
         reroutePoints: []
       - fieldName: enter
-        node: {fileID: 114397532487582238}
+        node: {fileID: 114958237259914062}
         reroutePoints: []
+      - fieldName: enter
+        node: {fileID: 114648303813759082}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _id: 1571e6c2-59e7-4332-9612-f744319d6737
+--- !u!114 &114648303813759082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df147baacf3d834aabddf23b21e5611, type: 3}
+  m_Name: Ability Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -312, y: 632}
+  ports:
+    keys:
+    - enter
+    - children
+    values:
+    - _fieldName: enter
+      _node: {fileID: 114648303813759082}
+      _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: children
+        node: {fileID: 114609886614735832}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: children
+      _node: {fileID: 114648303813759082}
+      _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
       - fieldName: enter
         node: {fileID: 114791669647502448}
         reroutePoints: []
@@ -498,7 +692,58 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _id: 1571e6c2-59e7-4332-9612-f744319d6737
+  _id: 7bec27e8-dd66-4b12-ac70-631c84719457
+  _displayName: Untitled
+  _description: Please provide a description
+  _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
+  _purchased: 0
+  _hide: 0
+--- !u!114 &114674815165933746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38da9a5643cd4694917ecc9b24515a0c, type: 3}
+  m_Name: Skill Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 456, y: -520}
+  ports:
+    keys:
+    - enter
+    - children
+    values:
+    - _fieldName: enter
+      _node: {fileID: 114674815165933746}
+      _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: children
+        node: {fileID: 114712779466234388}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: children
+      _node: {fileID: 114674815165933746}
+      _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _id: ac90dc98-c11f-4dd7-ab7f-6cbb72f13b31
+  _displayName: Untitled
+  _description: Please provide a description
+  _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
+  _purchased: 0
+  _hide: 0
 --- !u!114 &114712779466234388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,7 +757,7 @@ MonoBehaviour:
   m_Name: Skill Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 232, y: -232}
+  position: {x: 184, y: -392}
   ports:
     keys:
     - enter
@@ -534,7 +779,13 @@ MonoBehaviour:
       _node: {fileID: 114712779466234388}
       _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
         Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: enter
+        node: {fileID: 114282262480335352}
+        reroutePoints: []
+      - fieldName: enter
+        node: {fileID: 114674815165933746}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -558,7 +809,7 @@ MonoBehaviour:
   m_Name: Skill Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -72, y: -232}
+  position: {x: -72, y: -376}
   ports:
     keys:
     - children
@@ -582,7 +833,7 @@ MonoBehaviour:
         Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: children
-        node: {fileID: 114609886614735832}
+        node: {fileID: 114136554005563858}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -619,7 +870,7 @@ MonoBehaviour:
         Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: children
-        node: {fileID: 114609886614735832}
+        node: {fileID: 114648303813759082}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -788,6 +1039,55 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   _id: 6749dffe-ee93-49b5-8128-e9485b4b99dc
+  _displayName: Untitled
+  _description: Please provide a description
+  _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
+  _purchased: 0
+  _hide: 0
+--- !u!114 &114958237259914062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df147baacf3d834aabddf23b21e5611, type: 3}
+  m_Name: Ability Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -328, y: 56}
+  ports:
+    keys:
+    - enter
+    - children
+    values:
+    - _fieldName: enter
+      _node: {fileID: 114958237259914062}
+      _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: children
+        node: {fileID: 114609886614735832}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: children
+      _node: {fileID: 114958237259914062}
+      _typeQualifiedName: CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes.SkillNodeBase+Connection,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: enter
+        node: {fileID: 114397532487582238}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _id: d192b8af-e9e9-4183-b945-70e2e7367110
   _displayName: Untitled
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}

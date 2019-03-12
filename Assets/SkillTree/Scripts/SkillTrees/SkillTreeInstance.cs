@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CleverCrow.DungeonsAndHumans.SkillTrees.Nodes;
 using CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace CleverCrow.DungeonsAndHumans.SkillTrees {
@@ -31,6 +32,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
                     DisplayName = data.DisplayName,
                     Graphic = data.Graphic,
                     Description = data.Description,
+                    SkillType = data is AbilityNode ? SkillType.Ability : SkillType.Skill,
                 };
                 
                 node.OnPurchase.AddListener(OnPurchase.Invoke);

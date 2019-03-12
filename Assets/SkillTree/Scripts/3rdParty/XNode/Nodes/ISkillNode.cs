@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CleverCrow.DungeonsAndHumans.SkillTrees.Nodes;
 using UnityEngine;
 
 namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
@@ -7,7 +8,6 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
         string DisplayName { get; }
         Sprite Graphic { get; }
         bool Hide { get; }
-        
         bool IsPurchased { get; }
         
         List<ISkillNode> Children { get; }

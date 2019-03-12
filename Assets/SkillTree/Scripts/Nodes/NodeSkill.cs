@@ -16,6 +16,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public UnityEvent OnParentPurchase { get; } = new UnityEvent();
         public UnityEvent OnRefund { get; } = new UnityEvent();
         public UnityEvent OnDisable { get; } = new UnityEvent();
+        public SkillType SkillType { get; set; }
         public UnityEvent<bool> OnParentRefund { get; } = new UnityEventBool();
 
         private class UnityEventBool : UnityEvent<bool> {}

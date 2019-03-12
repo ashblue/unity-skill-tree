@@ -1981,6 +1981,8 @@ MonoBehaviour:
   _nodeOutput: {fileID: 1188361012}
   _skillPrefab: {fileID: 219551922525898601, guid: 0904cf5d8fbf2454085e7f1f79e15e75,
     type: 3}
+  _abilityPrefab: {fileID: 219551922525898601, guid: eb35ea84f6058b642ae9747957df9902,
+    type: 3}
   _context: {fileID: 745694204}
   _pointOutput: {fileID: 738840881}
 --- !u!114 &1931548781

@@ -27,7 +27,12 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
         public override string DisplayName => _displayName;
         public override string Description => _description;
         public override Sprite Graphic => _graphic;
-        public override bool IsPurchased => _purchased;
+
+        public override bool IsPurchased {
+            get => _purchased;
+            set => _purchased = value;
+        }
+        
         public override bool Hide => _hide;
     }
 }

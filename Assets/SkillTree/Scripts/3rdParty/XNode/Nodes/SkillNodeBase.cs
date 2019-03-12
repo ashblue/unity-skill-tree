@@ -18,7 +18,11 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
 
         public virtual Sprite Graphic => null;
         public virtual bool Hide => false;
-        public virtual bool IsPurchased => false;
+        public virtual bool IsPurchased {
+            get => false;
+            set => throw new NotImplementedException();
+        }
+
         public virtual string DisplayName => null;
         public virtual string Description => null;
         

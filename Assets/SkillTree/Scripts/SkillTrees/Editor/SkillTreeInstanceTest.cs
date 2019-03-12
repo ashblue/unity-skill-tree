@@ -14,6 +14,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Editors {
             _skillTree = new SkillTreeInstance();
             _data = Substitute.For<ISkillTreeData>();
             var root = Substitute.For<ISkillNode>();
+            root.IsPurchased.Returns(true);
             _child = Substitute.For<ISkillNode>();
                 
             _data.Root.Returns(root);
@@ -57,6 +58,30 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Editors {
                     _skillTree.Setup(_data);
                 
                     Assert.AreEqual("id", _skillTree.Root.Children[0].Id);
+                }
+
+                [Test]
+                public void It_should_not_mark_a_child_as_purchased_if_the_parent_is_not () {
+                    var child = Substitute.For<ISkillNode>();
+                    child.IsPurchased.Returns(true);
+
+                    _child.Children.Returns(new List<ISkillNode> {child});
+                    _skillTree.Setup(_data);
+                    
+                    Assert.IsFalse(_skillTree.Root.Children[0].Children[0].IsPurchased);
+                }
+                
+                [Test]
+                public void It_should_mark_nested_nodes_as_purchased () {
+                    var child = Substitute.For<ISkillNode>();
+                    child.IsPurchased.Returns(true);
+                    _child.IsPurchased.Returns(true);
+
+                    _child.Children.Returns(new List<ISkillNode> {child});
+                    _skillTree.Setup(_data);
+                    
+                    Assert.IsTrue(_skillTree.Root.Children[0].IsPurchased);
+                    Assert.IsTrue(_skillTree.Root.Children[0].Children[0].IsPurchased);
                 }
             }
         }

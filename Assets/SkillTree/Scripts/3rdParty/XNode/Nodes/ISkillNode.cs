@@ -8,8 +8,8 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
         string DisplayName { get; }
         Sprite Graphic { get; }
         bool Hide { get; }
-        bool IsPurchased { get; }
-        
+        bool IsPurchased { get; set; }
+
         List<ISkillNode> Children { get; }
         string Description { get; }
     }

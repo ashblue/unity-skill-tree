@@ -17,22 +17,24 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             Root = new NodeRoot();
             _skills = new List<INode>();
             
-            RecursiveAdd(Root, data.Root.Children);
+            RecursiveAdd(Root, data.GetCopy().Root);
             Root.Purchase();
         }
 
-        private void RecursiveAdd (INode pointer, IEnumerable<ISkillNode> children) {
-            if (children == null) return;
+        private void RecursiveAdd (INode pointer, ISkillNode parent) {
+            if (parent.Children == null) return;
             
-            foreach (var data in children) {
-                if (data.Hide) continue;
+            foreach (var child in parent.Children) {
+                if (child.Hide) continue;
+
+                if (child.IsPurchased && !parent.IsPurchased) child.IsPurchased = false;
                 
                 var node = new NodeSkill {
-                    Id = data.Id,
-                    DisplayName = data.DisplayName,
-                    Graphic = data.Graphic,
-                    Description = data.Description,
-                    SkillType = data is AbilityNode ? SkillType.Ability : SkillType.Skill,
+                    Id = child.Id,
+                    DisplayName = child.DisplayName,
+                    Graphic = child.Graphic,
+                    Description = child.Description,
+                    SkillType = child is AbilityNode ? SkillType.Ability : SkillType.Skill,
                 };
                 
                 node.OnPurchase.AddListener(OnPurchase.Invoke);
@@ -43,9 +45,9 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
                 
                 _skills.Add(node);
                 pointer.AddChild(node);                
-                RecursiveAdd(node, data.Children);
+                RecursiveAdd(node, child);
                 
-                if (data.IsPurchased) {
+                if (child.IsPurchased) {
                     node.Purchase();
                 } 
             }

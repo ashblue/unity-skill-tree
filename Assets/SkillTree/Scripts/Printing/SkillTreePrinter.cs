@@ -26,18 +26,18 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
                 Destroy(child.gameObject);
             }
 
-            RecursivePrint(tree.Root, _nodeOutput);
+            RecursivePrint(tree.Root, _nodeOutput, null);
         }
 
-        private void RecursivePrint (INode node, RectTransform parent) {
+        private void RecursivePrint (INode node, RectTransform parent, SkillPrint nodeParent) {
             foreach (var child in node.Children) {
                 var nodePrefab = _skillPrefab;
                 if (child.SkillType == SkillType.Ability) nodePrefab = _abilityPrefab;
                 
                 var skill = Instantiate(nodePrefab, parent);
-                skill.Setup(child, node);
+                skill.Setup(child, node, nodeParent);
                 skill.button.onClick.AddListener(() => _context.Open(child));
-                RecursivePrint(child, skill.childOutput);
+                RecursivePrint(child, skill.childOutput, skill);
             }
         }
 

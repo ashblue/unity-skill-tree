@@ -16,22 +16,29 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
         public RectTransform childOutput;
         public RectTransform connectorLeft;
         public RectTransform connectorRight;
+        public RectTransform childDivider;
 
         private void Awake() {
             _normalColor = button.colors.normalColor;
         }
 
-        public void Setup (INode child, INode parent) {
+        public void Setup (INode child, INode parent, SkillPrint printParent) {
             _node = child;
             
             title.text = child.DisplayName;
             graphic.sprite = child.Graphic;
             
-            connectorLeft.gameObject.SetActive(!(parent is NodeRoot));
+            connectorLeft.gameObject.SetActive(printParent != null);
             connectorRight.gameObject.SetActive(child.Children.Count > 0);
+            childDivider.gameObject.SetActive(child.Children.Count > 1);
 
-            if (!(parent is NodeRoot) && parent.Children.Count > 0) {
+            if (!(parent is NodeRoot) && parent.Children.Count > 1) {
                 AdjustAlignment(child, parent);
+            }
+            
+            // If single and parent aligned, align self
+            if (parent.Children.Count == 1 && printParent != null) {
+                InheritAlignment(printParent.alignment.childAlignment);
             }
 
             RefreshState();
@@ -41,6 +48,10 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             child.OnRefund.AddListener(RefreshState);
             child.OnParentRefund.AddListener(RefreshState);
             child.OnDisable.AddListener(RefreshState);
+        }
+
+        private void InheritAlignment (TextAnchor newAlignment) {
+            alignment.childAlignment = newAlignment;
         }
 
         private void RefreshState () {

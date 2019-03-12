@@ -63,21 +63,23 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
             OnParentRefund.Invoke(oldPurchase);
         }
         
-        public void Disable () {
-            if (!IsPurchased) IsEnabled = false;
+        public void Disable (SkillType type) {
+            if (type == SkillType && !IsPurchased) IsEnabled = false;
 
             foreach (var child in Children) {
-                child.Disable();
+                child.Disable(type);
             }
-            
-            OnDisable.Invoke();
+
+            if (type == SkillType) {
+                OnDisable.Invoke();                
+            }
         }
         
-        public void Enable (bool parentIsPurchased) {
-            if (parentIsPurchased) ParentPurchased();
+        public void Enable (SkillType type, bool parentIsPurchased) {
+            if (parentIsPurchased && type == SkillType) ParentPurchased();
             
             foreach (var child in Children) {
-                child.Enable(IsPurchased);
+                child.Enable(type, IsPurchased);
             }
         }
     }

@@ -13,6 +13,8 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Editors {
         public void BeforeEach () {
             _skillTree = new SkillTreeInstance();
             _data = Substitute.For<ISkillTreeData>();
+            _data.GetCopy().Returns(_data);
+            
             var root = Substitute.For<ISkillNode>();
             root.IsPurchased.Returns(true);
             _child = Substitute.For<ISkillNode>();

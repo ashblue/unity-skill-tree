@@ -42,15 +42,15 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
             throw new System.NotImplementedException();
         }
 
-        public void Disable () {
+        public void Disable (SkillType type) {
             foreach (var child in Children) {
-                child.Disable();
+                child.Disable(type);
             }
         }
 
-        public void Enable (bool parentIsPurchased) {
+        public void Enable (SkillType type, bool parentIsPurchased) {
             foreach (var child in Children) {
-                child.Enable(true);
+                child.Enable(type, true);
             }
         }
     }

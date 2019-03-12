@@ -42,13 +42,16 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
 
             printer.Build(skillTree);
             printer.SetPoints(abilityPoints, skillPoints);
+            
+            if (abilityPoints <= 0) skillTree.Root.Disable(SkillType.Ability);
+            if (skillPoints <= 0) skillTree.Root.Disable(SkillType.Skill);
         }
 
         private void PurchaseAbility (INode node) {
             if (node.SkillType != SkillType.Ability) return;
             
             abilityPoints -= 1;
-            if (abilityPoints <= 0) skillTree.Root.Disable();
+            if (abilityPoints <= 0) skillTree.Root.Disable(SkillType.Ability);
             printer.SetPoints(abilityPoints, skillPoints);
         }
 
@@ -56,7 +59,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
             if (node.SkillType != SkillType.Skill) return;
 
             skillPoints -= 1;
-            if (skillPoints <= 0) skillTree.Root.Disable();
+            if (skillPoints <= 0) skillTree.Root.Disable(SkillType.Skill);
             printer.SetPoints(abilityPoints, skillPoints);
         }
 
@@ -70,10 +73,12 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
             switch (node.SkillType) {
                 case SkillType.Skill: {
                     skillPoints += 1;
+                    skillTree.Root.Enable(SkillType.Skill, true);
                     break;
                 }
                 case SkillType.Ability: {
                     abilityPoints += 1;
+                    skillTree.Root.Enable(SkillType.Ability, true);
                     break;
                 }
                 default:
@@ -81,7 +86,6 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
             }
             
             printer.SetPoints(abilityPoints, skillPoints);
-            skillTree.Root.Enable(true);
         }
 
         public SaveTree Save () {

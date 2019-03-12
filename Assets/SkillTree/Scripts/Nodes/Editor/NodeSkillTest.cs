@@ -156,19 +156,28 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes.Editors {
 
         public class DisableMethod : NodeSkillTest {
             [Test]
-            public void It_should_set_IsEnabled_to_true_if_IsPurchase_is_true () {
+            public void It_should_set_IsEnabled_to_true_if_IsPurchased_is_true () {
                 _node.ParentPurchased();
                 _node.Purchase();
-                
+                _node.Disable(SkillType.Skill);
+
                 Assert.IsTrue(_node.IsEnabled);
             }
             
             [Test]
-            public void It_should_set_IsEnabled_to_false_if_IsPurchase_is_false () {
+            public void It_should_set_IsEnabled_to_false_if_IsPurchased_is_false () {
                 _node.ParentPurchased();
-                _node.Disable();
+                _node.Disable(SkillType.Skill);
                 
                 Assert.IsFalse(_node.IsEnabled);
+            }
+            
+            [Test]
+            public void It_should_not_set_IsEnabled_to_true_if_IsPurchased_is_true_but_skill_type_does_not_match () {
+                _node.ParentPurchased();
+                _node.Disable(SkillType.Ability);
+
+                Assert.IsTrue(_node.IsEnabled);
             }
             
             [Test]
@@ -176,9 +185,9 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes.Editors {
                 var child = Substitute.For<INode>();
                 
                 _node.AddChild(child);
-                _node.Disable();
+                _node.Disable(SkillType.Skill);
                 
-                child.Received(1).Disable();
+                child.Received(1).Disable(SkillType.Skill);
             }
         }
 
@@ -189,10 +198,22 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes.Editors {
                 _node.AddChild(child);
                 
                 _node.Purchase();
-                _node.Disable();
-                _node.Enable(true);
+                _node.Disable(SkillType.Skill);
+                _node.Enable(SkillType.Skill, true);
                 
                 Assert.IsTrue(child.IsEnabled);
+            }
+            
+            [Test]
+            public void It_should_skip_IsEnabled_if_the_type_does_not_match () {
+                var child = new NodeSkill();
+                _node.AddChild(child);
+                
+                _node.Purchase();
+                _node.Disable(SkillType.Skill);
+                _node.Enable(SkillType.Ability, true);
+                
+                Assert.IsFalse(child.IsEnabled);
             }
 
             [Test]
@@ -200,8 +221,8 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes.Editors {
                 var child = new NodeSkill();
                 _node.AddChild(child);
                 
-                _node.Disable();
-                _node.Enable(false);
+                _node.Disable(SkillType.Skill);
+                _node.Enable(SkillType.Skill, false);
                 
                 Assert.IsFalse(child.IsEnabled);
             }

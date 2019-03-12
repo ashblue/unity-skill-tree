@@ -11,20 +11,20 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         string DisplayName { get; }
         Sprite Graphic { get; }
         string Description { get; }
-        
+        SkillType SkillType { get; }
+
         void AddChild (INode node);
         void Purchase ();
         void Refund ();
         void ParentPurchased();
         void ParentRefund ();
-        void Disable ();
-        void Enable (bool parentIsPurchased);
+        void Disable (SkillType type);
+        void Enable (SkillType type, bool parentIsPurchased);
 
         UnityEvent OnPurchase { get; }
         UnityEvent OnParentPurchase { get; }
         UnityEvent OnRefund { get; }
         UnityEvent<bool> OnParentRefund { get; }
         UnityEvent OnDisable { get; }
-        SkillType SkillType { get; }
     }
 }

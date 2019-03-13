@@ -5,13 +5,15 @@ using UnityEngine.Events;
 namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
     public interface INode {
         List<INode> Children { get; }
-        bool IsPurchased { get; }
-        bool IsEnabled { get; }
+        List<INode> GroupExit { get; }
         string Id { get; }
         string DisplayName { get; }
         Sprite Graphic { get; }
         string Description { get; }
         SkillType SkillType { get; }
+        
+        bool IsPurchased { get; }
+        bool IsEnabled { get; }
 
         void AddChild (INode node);
         void Purchase ();

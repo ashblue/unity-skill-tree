@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace CleverCrow.DungeonsAndHumans.SkillTrees {
-    public class SkillPrint : MonoBehaviour {
+    public class SkillPrint : MonoBehaviour, ISkillPrint {
         private Color _normalColor;
         private INode _node;
         
@@ -18,36 +18,38 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
         public RectTransform connectorRight;
         public RectTransform childDivider;
 
+        public TextAnchor Alignment => alignment.childAlignment;
+
         private void Awake() {
             _normalColor = button.colors.normalColor;
         }
 
-        public void Setup (INode child, INode parent, SkillPrint printParent) {
-            _node = child;
+        public void Setup (INode node, INode parent, ISkillPrint printParent, bool parentIsGroup) {
+            _node = node;
             
-            title.text = child.DisplayName;
-            graphic.sprite = child.Graphic;
+            title.text = node.DisplayName;
+            graphic.sprite = node.Graphic;
             
             connectorLeft.gameObject.SetActive(printParent != null);
-            connectorRight.gameObject.SetActive(child.Children.Count > 0);
-            childDivider.gameObject.SetActive(child.Children.Count > 1);
+            connectorRight.gameObject.SetActive(node.Children.Count > 0 || parentIsGroup);
+            childDivider.gameObject.SetActive(node.Children.Count > 1);
 
             if (!(parent is NodeRoot) && parent.Children.Count > 1) {
-                AdjustAlignment(child, parent);
+                AdjustAlignment(node, parent);
             }
             
             // If single and parent aligned, align self
             if (parent.Children.Count == 1 && printParent != null) {
-                InheritAlignment(printParent.alignment.childAlignment);
+                InheritAlignment(printParent.Alignment);
             }
 
             RefreshState();
 
-            child.OnPurchase.AddListener(RefreshState);
-            child.OnParentPurchase.AddListener(RefreshState);
-            child.OnRefund.AddListener(RefreshState);
-            child.OnParentRefund.AddListener(RefreshState);
-            child.OnDisable.AddListener(RefreshState);
+            node.OnPurchase.AddListener(RefreshState);
+            node.OnParentPurchase.AddListener(RefreshState);
+            node.OnRefund.AddListener(RefreshState);
+            node.OnParentRefund.AddListener(RefreshState);
+            node.OnDisable.AddListener(RefreshState);
         }
 
         private void InheritAlignment (TextAnchor newAlignment) {

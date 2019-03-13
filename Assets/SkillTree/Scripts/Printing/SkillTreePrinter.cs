@@ -14,6 +14,9 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
 
         [SerializeField]
         private SkillPrint _abilityPrefab;
+
+        [SerializeField]
+        private GroupPrint _groupPrefab;
         
         [SerializeField] 
         private ContextPrint _context;
@@ -26,18 +29,42 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
                 Destroy(child.gameObject);
             }
 
-            RecursivePrint(tree.Root, _nodeOutput, null);
+            foreach (var child in tree.Root.Children) {
+                RecursivePrint(child, tree.Root, _nodeOutput, null, false);
+            }
         }
 
-        private void RecursivePrint (INode node, RectTransform parent, SkillPrint nodeParent) {
+        private void RecursivePrint (INode node, INode parent, RectTransform container, ISkillPrint nodeParent, bool parentIsGroup) {
+            if (node is NodeGroup) {
+                PrintGroup(node, container);
+                return;
+            }
+            
+            PrintNode(node, parent, container, nodeParent, parentIsGroup);
+        }
+
+        private void PrintGroup (INode node, RectTransform container) {
+            var group = Instantiate(_groupPrefab, container);
+            
             foreach (var child in node.Children) {
-                var nodePrefab = _skillPrefab;
-                if (child.SkillType == SkillType.Ability) nodePrefab = _abilityPrefab;
-                
-                var skill = Instantiate(nodePrefab, parent);
-                skill.Setup(child, node, nodeParent);
-                skill.button.onClick.AddListener(() => _context.Open(child));
-                RecursivePrint(child, skill.childOutput, skill);
+                RecursivePrint(child, node, group.childOutput, group, true);
+            }
+            
+            foreach (var child in node.GroupExit) {
+                RecursivePrint(child, node, group.exitOutput, group, false);
+            }
+        }
+
+        private void PrintNode (INode node, INode parent, RectTransform parentContainer, ISkillPrint nodeParent, bool parentIsGroup) {
+            var nodePrefab = _skillPrefab;
+            if (node.SkillType == SkillType.Ability) nodePrefab = _abilityPrefab;
+
+            var skill = Instantiate(nodePrefab, parentContainer);
+            skill.Setup(node, parent, nodeParent, parentIsGroup);
+            skill.button.onClick.AddListener(() => _context.Open(node));
+            
+            foreach (var child in node.Children) {
+                RecursivePrint(child, node, skill.childOutput, skill, parentIsGroup);
             }
         }
 

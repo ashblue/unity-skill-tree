@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using CleverCrow.DungeonsAndHumans.SkillTrees.Nodes;
 using CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes;
 using NSubstitute;
 using NUnit.Framework;
@@ -40,6 +42,51 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Editors {
                     _skillTree.Setup(_data);
                 
                     Assert.AreEqual(1, _skillTree.Root.Children[0].Children.Count);
+                }
+            }
+
+            public class GroupCreation : SkillTreeInstanceTest {
+                private ISkillNode _group;
+                
+                [SetUp]
+                public void SetupGroupCreation () {
+                    _group = Substitute.For<ISkillNode>();
+                    _group.IsGroup.Returns(true);
+                    _data.Root.Children.Returns(new List<ISkillNode> { _group });
+                    _group.GroupExit.Returns(new List<ISkillNode> { _child });
+                }
+                
+                [Test]
+                public void It_should_generate_a_group () {
+                    _skillTree.Setup(_data);
+
+                    Assert.IsTrue(_skillTree.Root.Children[0] is NodeGroup);
+                }
+
+                [Test]
+                public void It_should_add_children_to_the_group () {
+                    _group.Children.Returns(new List<ISkillNode> { _child });
+                    
+                    _skillTree.Setup(_data);
+
+                    Assert.AreEqual(1, _skillTree.Root.Children[0].Children.Count);
+                }
+
+                [Test]
+                public void It_should_set_Exit_skills () {
+                    _skillTree.Setup(_data);
+
+                    Assert.AreEqual(1, _skillTree.Root.Children[0].GroupExit.Count);
+                }
+                
+                [Test]
+                public void It_should_set_Exit_groups () {
+                    _child.IsGroup.Returns(true);
+                    _child.GroupExit.Returns(new List<ISkillNode>());
+                    
+                    _skillTree.Setup(_data);
+
+                    Assert.AreEqual(1, _skillTree.Root.Children[0].GroupExit.Count);
                 }
             }
 

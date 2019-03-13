@@ -5,6 +5,7 @@ using UnityEngine.Events;
 namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
     public class NodeSkill : INode {
         public List<INode> Children { get; } = new List<INode>();
+        public List<INode> GroupExit => null;
         public bool IsPurchased { get; private set; }
         public bool IsEnabled { get; private set; }
         public string Id { get; set; }

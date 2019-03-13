@@ -24,8 +24,10 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
         }
 
         public virtual string DisplayName => null;
+        public virtual List<ISkillNode> GroupExit { get; } = new List<ISkillNode>();
         public virtual string Description => null;
-        
+        public virtual bool IsGroup => false;
+
         public List<ISkillNode> Children {
             get {
                 var port = GetOutputPort("children");

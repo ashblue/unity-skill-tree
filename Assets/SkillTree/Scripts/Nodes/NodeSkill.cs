@@ -88,7 +88,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
                 child.Enable(type, IsPurchased);
             }
             
-            OnEnable.Invoke(type, parentIsPurchased);
+            OnEnable.Invoke(type, IsPurchased);
         }
     }
 }

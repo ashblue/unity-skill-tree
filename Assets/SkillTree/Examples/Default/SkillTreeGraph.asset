@@ -2314,7 +2314,7 @@ MonoBehaviour:
   _displayName: Untitled
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
-  _purchased: 0
+  _purchased: 1
   _hide: 0
 --- !u!114 &114528253410716620
 MonoBehaviour:
@@ -2964,7 +2964,7 @@ MonoBehaviour:
   _displayName: Untitled
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
-  _purchased: 1
+  _purchased: 0
   _hide: 0
 --- !u!114 &114662000765659228
 MonoBehaviour:
@@ -3494,7 +3494,7 @@ MonoBehaviour:
   _displayName: Untitled
   _description: Please provide a description
   _graphic: {fileID: 21300000, guid: f03ec036915ebb44aa185d45e601c103, type: 3}
-  _purchased: 1
+  _purchased: 0
   _hide: 0
 --- !u!114 &114799745603145494
 MonoBehaviour:

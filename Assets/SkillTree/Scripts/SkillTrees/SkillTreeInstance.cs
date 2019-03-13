@@ -32,33 +32,48 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
             if (node.Hide) return;
             
             if (node.IsGroup) {
-                BuildGroup(node, siblings);
+                BuildGroup(node, parent, siblings);
                 return;
             }
 
             BuildSkill(node, parent, siblings);
         }
 
-        private void BuildGroup (ISkillNode node, List<INode> siblings) {
+        private void BuildGroup (ISkillNode node, ISkillNode parent, ICollection<INode> siblings) {
             var group = new NodeGroup();
             siblings.Add(group);
 
             if (node.Children != null) {
                 foreach (var child in node.Children) {
-                    RecursiveAdd(child, node, group.Children);
+                    RecursiveAdd(child, parent, group.Children);
                 }
             }
+            
+            var emptyChildren = new List<ISkillNode>();
+            GetEmptyChildren(node.Children, emptyChildren);
+            var bestEmptyChild = emptyChildren.Find(c => c.IsPurchased) ?? emptyChildren[0];
 
             if (node.GroupExit != null) {
                 foreach (var child in node.GroupExit) {
-                    RecursiveAdd(child, node, group.GroupExit);
+                    RecursiveAdd(child, bestEmptyChild, group.GroupExit);
                 }
             }
             
             group.BindChildrenToExit();
         }
         
-        private void BuildSkill (ISkillNode node, ISkillNode parent, List<INode> siblings) {
+        private static void GetEmptyChildren (List<ISkillNode> list, List<ISkillNode> output) {
+            foreach (var node in list) {
+                if (node.Children == null || node.Children.Count == 0) {
+                    output.Add(node);
+                    continue;
+                }
+                
+                GetEmptyChildren(node.Children, output);
+            }
+        }
+        
+        private void BuildSkill (ISkillNode node, ISkillNode parent, ICollection<INode> siblings) {
             if (node.IsPurchased && !parent.IsPurchased) node.IsPurchased = false;
 
             var skill = new NodeSkill {

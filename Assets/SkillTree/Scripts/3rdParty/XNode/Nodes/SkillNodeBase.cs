@@ -53,11 +53,11 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes {
                     var skillNode = (ISkillNode)n;
                     return skillNode != null && skillNode.Id == _id;
                 });
-
-                if (match != null) {
+                
+                if (match != null && !Application.isPlaying) {
                     _id = Guid.NewGuid().ToString();
                 }
-            }
+            }            
         }
     }
 }

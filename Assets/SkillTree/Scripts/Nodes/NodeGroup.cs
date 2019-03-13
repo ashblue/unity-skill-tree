@@ -23,7 +23,8 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public UnityEvent OnRefund { get; }
         public UnityEvent<bool> OnParentRefund { get; }
         public UnityEvent OnDisable { get; }
-        
+        public UnityEvent<SkillType, bool> OnEnable { get; }
+
         public void AddChild (INode node) {
             Children.Add(node);
         }
@@ -77,6 +78,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
                     GroupExit.ForEach(n => {
                         node.OnPurchaseBefore.AddListener(n.ParentPurchased);
                         node.OnParentRefund.AddListener(i => n.ParentRefund());
+                        node.OnEnable.AddListener((type, parentIsPurchased) => n.Enable(type, parentIsPurchased));
 
                         node.OnRefund.AddListener(() => {
                             if (!_exits.Any(exit => exit.IsPurchased)) {

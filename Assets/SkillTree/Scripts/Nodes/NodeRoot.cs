@@ -20,6 +20,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public UnityEvent OnRefund { get; } = null;
         public UnityEvent<bool> OnParentRefund { get; } = null;
         public UnityEvent OnDisable { get; } = null;
+        public UnityEvent<SkillType, bool> OnEnable { get; } = null;
         public SkillType SkillType { get; }
 
         public void ParentRefund () {

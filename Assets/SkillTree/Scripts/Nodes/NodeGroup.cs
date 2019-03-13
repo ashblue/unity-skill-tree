@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
     public class NodeGroup : INode {
+        private List<INode> _exits = new List<INode>();
+        
         public List<INode> Children { get; } = new List<INode>();
         public List<INode> GroupExit { get; } = new List<INode>();
         public string Id => null;
@@ -62,7 +65,17 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         private void BindEmptyChildrenToExit (List<INode> list) {
             foreach (var node in list) {
                 if (node.Children == null || node.Children.Count == 0) {
-                    GroupExit.ForEach(n => node.OnPurchase.AddListener(n.ParentPurchased));
+                    GroupExit.ForEach(n => {
+                        node.OnPurchase.AddListener(n.ParentPurchased);
+
+                        node.OnRefund.AddListener(() => {
+                            if (!_exits.Any(exit => exit.IsPurchased)) {
+                                n.ParentRefund();
+                            }
+                        });
+                    });
+                    
+                    _exits.Add(node);
                     continue;
                 }
 

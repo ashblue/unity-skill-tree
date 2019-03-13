@@ -56,6 +56,35 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes.Editors {
                 
                 exit.Received(1).ParentPurchased();
             }
+            
+            [Test]
+            public void It_should_bind_an_empty_childs_Refund_event_to_trigger_exit_childs_ParentRefund () {
+                var exit = Substitute.For<INode>();
+                var child = new NodeSkill();
+                
+                _group.AddChild(child);
+                _group.GroupExit.Add(exit);
+                _group.BindChildrenToExit();
+                child.Refund();
+                
+                exit.Received(1).ParentRefund();
+            }
+
+            [Test]
+            public void It_should_not_trigger_ParentRefund_on_exit_if_one_of_two_parents_are_active () {
+                var exit = Substitute.For<INode>();
+                var child = new NodeSkill();
+                var childAlt = new NodeSkill();
+                childAlt.Purchase();
+
+                _group.AddChild(child);
+                _group.AddChild(childAlt);
+                _group.GroupExit.Add(exit);
+                _group.BindChildrenToExit();
+                child.Refund();
+                
+                exit.Received(0).ParentRefund();
+            }
         }
     }
 }

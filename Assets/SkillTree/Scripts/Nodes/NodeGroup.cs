@@ -14,6 +14,12 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public bool IsPurchased => true;
         public bool IsEnabled => true;
         
+        public UnityEvent OnPurchase { get; }
+        public UnityEvent OnParentPurchase { get; }
+        public UnityEvent OnRefund { get; }
+        public UnityEvent<bool> OnParentRefund { get; }
+        public UnityEvent OnDisable { get; }
+        
         public void AddChild (INode node) {
             Children.Add(node);
         }
@@ -46,10 +52,22 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
             }
         }
 
-        public UnityEvent OnPurchase { get; }
-        public UnityEvent OnParentPurchase { get; }
-        public UnityEvent OnRefund { get; }
-        public UnityEvent<bool> OnParentRefund { get; }
-        public UnityEvent OnDisable { get; }
+        /// <summary>
+        /// Post setup hook that should be called to bind the last children to the exit
+        /// </summary>
+        public void BindChildrenToExit () {
+            BindEmptyChildrenToExit(Children);
+        }
+        
+        private void BindEmptyChildrenToExit (List<INode> list) {
+            foreach (var node in list) {
+                if (node.Children == null || node.Children.Count == 0) {
+                    GroupExit.ForEach(n => node.OnPurchase.AddListener(n.ParentPurchased));
+                    continue;
+                }
+
+                BindEmptyChildrenToExit(node.Children);
+            }
+        }
     }
 }

@@ -19,69 +19,74 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
         public void Setup (ISkillTreeData data) {
             Root = new NodeRoot();
             _skills = new List<INode>();
+
+            var copy = data.GetCopy();
+            foreach (var child in copy.Root.Children) {
+                RecursiveAdd(child, copy.Root, Root.Children);
+            }
             
-            RecursiveAdd(Root, data.GetCopy().Root);
             Root.Purchase();
         }
 
-        private void RecursiveAdd (INode pointer, ISkillNode parent) {
-            if (parent.Children == null) return;
+        private void RecursiveAdd (ISkillNode node, ISkillNode parent, List<INode> siblings) {
+            if (node.Hide) return;
+            
+            if (node.IsGroup) {
+                BuildGroup(node, siblings);
+                return;
+            }
 
-            foreach (var child in parent.Children) {
-                if (child.Hide) continue;
+            BuildSkill(node, parent, siblings);
+        }
 
-                if (child.IsGroup) {
-                    var group = BuildGroup(child);      
-                    pointer.AddChild(group);
-                    
-                    foreach (var exitChild in child.GroupExit) {
-                        if (exitChild.IsGroup) {
-                            var groupChild = BuildGroup(exitChild);      
-                            group.GroupExit.Add(groupChild);
-                        } else {
-                            var skill = BuildSkill(child, exitChild);             
-                            group.GroupExit.Add(skill);
-                        }
-                    }
-                } else {
-                    var skill = BuildSkill(parent, child);             
-                    pointer.AddChild(skill);
+        private void BuildGroup (ISkillNode node, List<INode> siblings) {
+            var group = new NodeGroup();
+            siblings.Add(group);
+
+            if (node.Children != null) {
+                foreach (var child in node.Children) {
+                    RecursiveAdd(child, node, group.Children);
                 }
             }
+
+            if (node.GroupExit != null) {
+                foreach (var child in node.GroupExit) {
+                    RecursiveAdd(child, node, group.GroupExit);
+                }
+            }
+            
+            group.BindChildrenToExit();
         }
+        
+        private void BuildSkill (ISkillNode node, ISkillNode parent, List<INode> siblings) {
+            if (node.IsPurchased && !parent.IsPurchased) node.IsPurchased = false;
 
-        private INode BuildGroup (ISkillNode node) {
-            var group = new NodeGroup();
-            RecursiveAdd(group, node);
-
-            return group;
-        }
-
-        private INode BuildSkill (ISkillNode parent, ISkillNode child) {
-            if (child.IsPurchased && !parent.IsPurchased) child.IsPurchased = false;
-
-            var node = new NodeSkill {
-                Id = child.Id,
-                DisplayName = child.DisplayName,
-                Graphic = child.Graphic,
-                Description = child.Description,
-                SkillType = child is AbilityNode ? SkillType.Ability : SkillType.Skill,
+            var skill = new NodeSkill {
+                Id = node.Id,
+                DisplayName = node.DisplayName,
+                Graphic = node.Graphic,
+                Description = node.Description,
+                SkillType = node is AbilityNode ? SkillType.Ability : SkillType.Skill,
             };
 
-            node.OnPurchase.AddListener(() => OnPurchase.Invoke(node));
-            node.OnRefund.AddListener(() => OnRefund.Invoke(node));
-            node.OnParentRefund.AddListener(isPurchased => {
-                if (isPurchased) OnRefund.Invoke(node);
+            skill.OnPurchase.AddListener(() => OnPurchase.Invoke(skill));
+            skill.OnRefund.AddListener(() => OnRefund.Invoke(skill));
+            skill.OnParentRefund.AddListener(isPurchased => {
+                if (isPurchased) OnRefund.Invoke(skill);
             });
 
-            _skills.Add(node);
-            RecursiveAdd(node, child);
+            _skills.Add(skill);
+            siblings.Add(skill);
 
-            if (child.IsPurchased) {
-                node.Purchase();
+            if (node.Children != null) {
+                foreach (var child in node.Children) {
+                    RecursiveAdd(child, node, skill.Children);
+                }
             }
-
-            return node;
+            
+            if (node.IsPurchased) {
+                skill.Purchase();
+            }
         }
 
         public List<SkillSave> Save () {

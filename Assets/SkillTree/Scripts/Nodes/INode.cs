@@ -14,6 +14,12 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         
         bool IsPurchased { get; }
         bool IsEnabled { get; }
+        
+        UnityEvent OnPurchase { get; }
+        UnityEvent OnParentPurchase { get; }
+        UnityEvent OnRefund { get; }
+        UnityEvent<bool> OnParentRefund { get; }
+        UnityEvent OnDisable { get; }
 
         void AddChild (INode node);
         void Purchase ();
@@ -22,11 +28,5 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         void ParentRefund ();
         void Disable (SkillType type);
         void Enable (SkillType type, bool parentIsPurchased);
-
-        UnityEvent OnPurchase { get; }
-        UnityEvent OnParentPurchase { get; }
-        UnityEvent OnRefund { get; }
-        UnityEvent<bool> OnParentRefund { get; }
-        UnityEvent OnDisable { get; }
     }
 }

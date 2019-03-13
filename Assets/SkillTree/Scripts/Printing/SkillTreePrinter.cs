@@ -1,6 +1,5 @@
 using CleverCrow.DungeonsAndHumans.SkillTrees.Nodes;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace CleverCrow.DungeonsAndHumans.SkillTrees {

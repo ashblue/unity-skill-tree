@@ -31,6 +31,17 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes.Editors {
                 _child.Received(1).Enable(SkillType.Ability, true);
             }
         }
+        
+        public class DisableMethod : NodeGroupTest {
+            [Test]
+            public void It_should_call_Disable_on_children () {
+                _group.AddChild(_child);
+
+                _group.Disable(SkillType.Ability);
+                
+                _child.Received(1).Disable(SkillType.Ability);
+            }
+        }
 
         public class ParentPurchased : NodeGroupTest {
             [Test]
@@ -66,6 +77,19 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes.Editors {
                 _group.GroupExit.Add(exit);
                 _group.BindChildrenToExit();
                 child.Refund();
+                
+                exit.Received(1).ParentRefund();
+            }
+            
+            [Test]
+            public void It_should_bind_an_empty_childs_ParentRefund_event_to_trigger_exit_childs_ParentRefund () {
+                var exit = Substitute.For<INode>();
+                var child = new NodeSkill();
+                
+                _group.AddChild(child);
+                _group.GroupExit.Add(exit);
+                _group.BindChildrenToExit();
+                child.ParentRefund();
                 
                 exit.Received(1).ParentRefund();
             }

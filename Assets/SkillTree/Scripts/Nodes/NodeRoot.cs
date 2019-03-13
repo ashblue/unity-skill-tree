@@ -14,6 +14,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
 
         public bool IsEnabled => true;
 
+        public UnityEvent OnPurchaseBefore { get; } = null;
         public UnityEvent OnPurchase { get; } = null;
         public UnityEvent OnParentPurchase { get; } = null;
         public UnityEvent OnRefund { get; } = null;

@@ -13,6 +13,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public Sprite Graphic { get; set; }
         public string Description { get; set; }
 
+        public UnityEvent OnPurchaseBefore { get; } = new UnityEvent();
         public UnityEvent OnPurchase { get; } = new UnityEvent();
         public UnityEvent OnParentPurchase { get; } = new UnityEvent();
         public UnityEvent OnRefund { get; } = new UnityEvent();
@@ -28,6 +29,8 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
 
         public void Purchase () {
             IsPurchased = true;
+            
+            OnPurchaseBefore.Invoke();
             
             foreach (var child in Children) {
                 child.ParentPurchased();

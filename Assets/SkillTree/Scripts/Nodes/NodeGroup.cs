@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
     public class NodeGroup : INode {
-        private List<INode> _exits = new List<INode>();
+        private readonly List<INode> _exits = new List<INode>();
         
         public List<INode> Children { get; } = new List<INode>();
         public List<INode> GroupExit { get; } = new List<INode>();
@@ -17,6 +17,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         public bool IsPurchased => true;
         public bool IsEnabled => true;
         
+        public UnityEvent OnPurchaseBefore { get; }
         public UnityEvent OnPurchase { get; }
         public UnityEvent OnParentPurchase { get; }
         public UnityEvent OnRefund { get; }
@@ -42,11 +43,19 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
         }
 
         public void ParentRefund () {
-            throw new System.NotImplementedException();
+            foreach (var child in Children) {
+                child.ParentRefund();
+            }
         }
 
         public void Disable (SkillType type) {
-            throw new System.NotImplementedException();
+            foreach (var child in Children) {
+                child.Disable(type);
+            }
+
+            foreach (var child in GroupExit) {
+                child.Disable(type);
+            }
         }
 
         public void Enable (SkillType type, bool parentIsPurchased) {
@@ -66,7 +75,8 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
             foreach (var node in list) {
                 if (node.Children == null || node.Children.Count == 0) {
                     GroupExit.ForEach(n => {
-                        node.OnPurchase.AddListener(n.ParentPurchased);
+                        node.OnPurchaseBefore.AddListener(n.ParentPurchased);
+                        node.OnParentRefund.AddListener(i => n.ParentRefund());
 
                         node.OnRefund.AddListener(() => {
                             if (!_exits.Any(exit => exit.IsPurchased)) {

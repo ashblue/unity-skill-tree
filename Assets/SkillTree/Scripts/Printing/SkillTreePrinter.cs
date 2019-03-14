@@ -35,15 +35,16 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
 
         private void RecursivePrint (INode node, INode parent, RectTransform container, ISkillPrint nodeParent, bool parentIsGroup) {
             if (node is NodeGroup) {
-                PrintGroup(node, container);
+                PrintGroup(node, parent, container);
                 return;
             }
             
             PrintNode(node, parent, container, nodeParent, parentIsGroup);
         }
 
-        private void PrintGroup (INode node, RectTransform container) {
+        private void PrintGroup (INode node, INode parent, RectTransform container) {
             var group = Instantiate(_groupPrefab, container);
+            group.Setup(parent);
             
             foreach (var child in node.Children) {
                 RecursivePrint(child, node, group.childOutput, group, true);

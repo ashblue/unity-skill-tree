@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
     public class ExampleSkillTree : MonoBehaviour {
-        private const int ABILITY_POINTS = 2;
+        private const int ABILITY_POINTS = 5;
         private int _abilityPoints = ABILITY_POINTS;
 
         public SkillTreeInstance skillTree;

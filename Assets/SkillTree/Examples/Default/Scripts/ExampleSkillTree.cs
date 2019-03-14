@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using CleverCrow.DungeonsAndHumans.SkillTrees.Nodes;
 using CleverCrow.DungeonsAndHumans.SkillTrees.ThirdParties.XNodes;
@@ -6,12 +5,12 @@ using UnityEngine;
 
 namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
     public class ExampleSkillTree : MonoBehaviour {
-        private const int ABILITY_POINTS = 5;
-        
+        private const int ABILITY_POINTS = 2;
+        private int _abilityPoints = ABILITY_POINTS;
+
         public SkillTreeInstance skillTree;
         
         public int skillPoints = 5;
-        public int abilityPoints = ABILITY_POINTS;
         public SkillTreeGraph graph;
         public SkillTreePrinter printer;
 
@@ -29,7 +28,8 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
             
             // Catch purchases as they are registered
             skillTree.OnPurchase.AddListener(PurchaseAbility);
-            
+            skillTree.OnRefund.AddListener(RefundAbility);
+
             if (save == null) {
                 skillTree.Setup(graph);                
             } else {
@@ -38,21 +38,21 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
             
             // Post setup hooks
             skillTree.OnPurchase.AddListener(PurchaseSkill);
-            skillTree.OnRefund.AddListener(Refund);
+            skillTree.OnRefund.AddListener(RefundSkill);
 
             printer.Build(skillTree);
-            printer.SetPoints(abilityPoints, skillPoints);
+            printer.SetPoints(_abilityPoints, skillPoints);
             
-            if (abilityPoints <= 0) skillTree.Root.Disable(SkillType.Ability);
+            if (_abilityPoints <= 0) skillTree.Root.Disable(SkillType.Ability);
             if (skillPoints <= 0) skillTree.Root.Disable(SkillType.Skill);
         }
 
         private void PurchaseAbility (INode node) {
             if (node.SkillType != SkillType.Ability) return;
             
-            abilityPoints -= 1;
-            if (abilityPoints <= 0) skillTree.Root.Disable(SkillType.Ability);
-            printer.SetPoints(abilityPoints, skillPoints);
+            _abilityPoints -= 1;
+            if (_abilityPoints <= 0) skillTree.Root.Disable(SkillType.Ability);
+            printer.SetPoints(_abilityPoints, skillPoints);
         }
 
         private void PurchaseSkill (INode node) {
@@ -60,32 +60,32 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
 
             skillPoints -= 1;
             if (skillPoints <= 0) skillTree.Root.Disable(SkillType.Skill);
-            printer.SetPoints(abilityPoints, skillPoints);
+            printer.SetPoints(_abilityPoints, skillPoints);
         }
 
         private void OnDestroy () {
             skillTree.OnPurchase.RemoveListener(PurchaseAbility);
             skillTree.OnPurchase.RemoveListener(PurchaseSkill);
-            skillTree.OnRefund.RemoveListener(Refund);
+            skillTree.OnRefund.RemoveListener(RefundSkill);
+            skillTree.OnRefund.RemoveListener(RefundAbility);
+        }
+        
+        private void RefundAbility (INode node) {
+            if (node.SkillType != SkillType.Ability) return;
+            
+            _abilityPoints += 1;
+            skillTree.Root.Enable(SkillType.Ability, true);
+            
+            printer.SetPoints(_abilityPoints, skillPoints);
         }
 
-        private void Refund (INode node) {
-            switch (node.SkillType) {
-                case SkillType.Skill: {
-                    skillPoints += 1;
-                    skillTree.Root.Enable(SkillType.Skill, true);
-                    break;
-                }
-                case SkillType.Ability: {
-                    abilityPoints += 1;
-                    skillTree.Root.Enable(SkillType.Ability, true);
-                    break;
-                }
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+        private void RefundSkill (INode node) {
+            if (node.SkillType != SkillType.Skill) return;
+
+            skillPoints += 1;
+            skillTree.Root.Enable(SkillType.Skill, true);
             
-            printer.SetPoints(abilityPoints, skillPoints);
+            printer.SetPoints(_abilityPoints, skillPoints);
         }
 
         public SaveTree Save () {
@@ -97,7 +97,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Examples {
 
         public void Load (SaveTree save) {
             skillPoints = save.skillPoints;
-            abilityPoints = ABILITY_POINTS;
+            _abilityPoints = ABILITY_POINTS;
             Setup(save.tree);
         }
     }

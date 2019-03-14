@@ -16,7 +16,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
         private class UnityEventNode : UnityEvent<INode> {
         }
 
-        public void Setup (ISkillTreeData data) {
+        public void Setup (ISkillTreeData data) {            
             Root = new NodeRoot();
             _skills = new List<INode>();
 
@@ -121,9 +121,9 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees {
                 if (!idToSave.TryGetValue(skill.Id, out var details)) continue;
 
                 if (details.purchased) {
-                    skill.Purchase();
+                    if (!skill.IsPurchased) skill.Purchase();
                 } else {
-                    skill.Refund();
+                    if (skill.IsPurchased) skill.Refund();
                 }
             }
         }

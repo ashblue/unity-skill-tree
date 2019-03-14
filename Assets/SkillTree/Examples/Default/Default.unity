@@ -1037,7 +1037,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillPoints: 2
-  abilityPoints: 2
   graph: {fileID: 11400000, guid: 104f35aec6bc14045a6d875ecfbf6596, type: 2}
   printer: {fileID: 1931548780}
 --- !u!4 &830803113

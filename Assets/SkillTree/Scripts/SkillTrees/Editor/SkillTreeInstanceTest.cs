@@ -150,7 +150,29 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Editors {
                     _skillTree.Setup(_data);
                 
                     Assert.IsFalse(_skillTree.Root.Children[0].Children[0].GroupExit[0].IsPurchased);
+                }
+                
+                [Test]
+                public void It_should_assign_enabled_state_on_group_exit () {
+                    _child.IsPurchased.Returns(true);
+                    
+                    var groupChild = Substitute.For<ISkillNode>();
+                    groupChild.IsPurchased.Returns(true);
+                    
+                    var groupExit = Substitute.For<ISkillNode>();
+                    groupExit.IsPurchased.Returns(true);
 
+                    var group = Substitute.For<ISkillNode>();
+                    group.IsGroup.Returns(true);
+                    group.IsPurchased.Returns(true);
+                    group.Children.Returns(new List<ISkillNode> {groupChild});
+                    group.GroupExit.Returns(new List<ISkillNode> {groupExit});
+                    _child.Children.Returns(new List<ISkillNode> {group});
+
+                    _skillTree.Setup(_data);
+                
+                    Assert.IsTrue(_skillTree.Root.Children[0].Children[0].GroupExit[0].IsPurchased);
+                    Assert.IsTrue(_skillTree.Root.Children[0].Children[0].GroupExit[0].IsEnabled);
                 }
 
                 [Test]

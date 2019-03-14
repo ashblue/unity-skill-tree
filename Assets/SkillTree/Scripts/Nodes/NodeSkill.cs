@@ -31,6 +31,7 @@ namespace CleverCrow.DungeonsAndHumans.SkillTrees.Nodes {
 
         public void Purchase () {
             IsPurchased = true;
+            IsEnabled = true;
             
             OnPurchaseBefore.Invoke();
             
